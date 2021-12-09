@@ -1,0 +1,31 @@
+[
+  {
+    "id": 1,
+    "libelle": "T-shirt"
+  },
+  {
+    "id": 2,
+    "libelle": "Polo"
+  },
+  {
+    "id": 3,
+    "libelle": "Chaussettes"
+  },
+  {
+    "id": 4,
+    "libelle": "Pantalon"
+  },
+
+  {
+    "id": 5,
+    "libelle": "Ballon"
+  },
+  {
+    "id": 6,
+    "libelle": "Jogging"
+  },
+  {
+    "id": 7,
+    "libelle": "Pull"
+  }
+]

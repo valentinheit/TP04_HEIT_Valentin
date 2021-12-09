@@ -1,0 +1,22 @@
+<div style="display: flex; flex-direction: column">
+  <h1>Catalogue</h1>
+  <input
+    [(ngModel)]="search"
+    (change)="filter()"
+    placeholder="Rechercher par libellé"
+  />
+  <table style="border: 1px solid">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Libelle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+        <td>{{ product.id }}</td>
+        <td>{{ product.libelle }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
