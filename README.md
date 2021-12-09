@@ -2,7 +2,7 @@
 
 ## Contexte
 
-Cette application a été réalisée dans le cadre du TP02 de la matière NFE114 dirigée par Emmanuel Maurice. L'objectif principal est l'initialisation d'un projet Angular et la manipulation de directives, pipes, binding et interpolations de données.
+Cette application a été réalisée dans le cadre du TP03 de la matière NFE114 dirigée par Emmanuel Maurice. L'objectif principal est l'initialisation d'un projet Angular et la manipulation de directives, pipes, binding et interpolations de données.
 
 Pour illustrer ces concepts, il nous est demandé de créer différents services et de manipuler le design pattern Observable pour réaliser des recherches dans un catalogue de produits.
 
