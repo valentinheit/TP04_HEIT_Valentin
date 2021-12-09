@@ -2,7 +2,7 @@
   <h1>Catalogue</h1>
   <input
     [(ngModel)]="search"
-    (change)="filter()"
+    (input)="filter()"
     placeholder="Rechercher par libellé"
   />
   <table style="border: 1px solid">

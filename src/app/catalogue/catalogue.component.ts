@@ -19,11 +19,19 @@ export class CatalogueComponent implements OnInit {
   }
 
   filter() {
-    this.productService
-      .getCatalogue()
-      .subscribe(
-        (products) =>
-          (this.products = products.filter((p) => p.libelle == this.search))
-      );
+    if (this.search !== '') {
+      this.productService
+        .getCatalogue()
+        .subscribe(
+          (products) =>
+            (this.products = products.filter(
+              (p) => p.libelle.toLowerCase() == this.search.toLowerCase()
+            ))
+        );
+    } else {
+      this.productService
+        .getCatalogue()
+        .subscribe((products) => (this.products = products));
+    }
   }
 }
