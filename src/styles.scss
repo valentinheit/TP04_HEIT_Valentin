@@ -40,6 +40,15 @@ select {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
+  background-color: var(--main);
+}
+
+.form-group {
+  .connexion {
+    input {
+      background-color: white;
+    }
+  }
 }
 
 .input-wrong {

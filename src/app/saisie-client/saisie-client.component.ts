@@ -1,5 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { NgForm, ValidatorFn, FormBuilder } from '@angular/forms';
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  AbstractControl,
+  ValidationErrors,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-saisie-client',
@@ -7,65 +14,76 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./saisie-client.component.scss'],
 })
 export class SaisieClientComponent implements OnInit {
+  form: FormGroup = new FormGroup({});
   valid: boolean = true;
-  constructor() {}
-
   submitted: boolean = false;
-  nom: string = '';
-  nomChanged: boolean = false;
-  prenom: string = '';
-  prenomChanged: boolean = false;
-  adresse: string = '';
-  cp: number = 0;
-  ville: string = '';
-  tel: string = '';
-  telChanged: boolean = false;
-  email: string = '';
-  emailChanged: boolean = false;
-  civilite: string = '';
-  login: string = '';
-  loginChanged: boolean = false;
-  password: string = '';
-  passwordChanged: boolean = false;
-  confirmPassword: string = '';
-  confirmPasswordChanged: boolean = false;
-  pays: string = '';
-  ngOnInit(): void {}
+  nom = new FormControl('', [Validators.required]);
+  prenom = new FormControl('', [Validators.required]);
+  adresse = new FormControl('');
+  cp = new FormControl('');
+  ville = new FormControl('');
+  tel = new FormControl('', [
+    Validators.required,
+    Validators.minLength(10),
+    Validators.maxLength(10),
+  ]);
+  email = new FormControl('', [Validators.required, Validators.email]);
+  civilite = new FormControl('');
+  login = new FormControl('', [Validators.required]);
+  password = new FormControl('', [Validators.required]);
+  confirmPassword = new FormControl('', [
+    Validators.required,
+    this.isSamePasswords(),
+  ]);
+
+  pays = new FormControl('');
+
+  constructor(private formBuilder: FormBuilder) {}
+
+  ngOnInit(): void {
+    this.form = new FormGroup({
+      nom: this.nom,
+      prenom: this.prenom,
+      adresse: this.adresse,
+      cp: this.cp,
+      ville: this.ville,
+      tel: this.tel,
+      email: this.email,
+      civilite: this.civilite,
+      login: this.login,
+      password: this.password,
+      confirmPassword: this.confirmPassword,
+      pays: this.pays,
+    });
+  }
 
   isValid() {
     return this.isValid;
   }
 
-  onSubmit(form: NgForm) {
-    console.log(form);
+  onSubmit() {
+    console.log(this.form.get('password')?.value);
   }
 
-  isEmailValid() {
-    if (this.email) {
-      const regexp = new RegExp('^[^@s]+@[^@s]+.[^@s]+$');
-      if (regexp.test(this.email)) {
-        return true;
-      }
-    }
-    return false;
-  }
   showRecap() {
     if (
-      this.nom &&
-      this.prenom &&
-      this.email &&
-      this.login &&
-      this.password &&
-      this.confirmPassword
+      this.form.get('nom') &&
+      this.form.get('prenom') &&
+      this.form.get('email') &&
+      this.form.get('login') &&
+      this.form.get('password') &&
+      this.form.get('confirmPassword')
     ) {
       this.submitted = true;
     }
   }
 
-  isSamePassword() {
-    if (this.password !== '' && this.password == this.confirmPassword) {
-      return true;
-    }
-    return false;
+  isSamePasswords(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      return this.form.get('password')?.value ===
+        this.form.get('confirmPassword')?.value
+        ? null
+        : { PasswordsNotCorresponding: true };
+    };
   }
 }

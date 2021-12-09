@@ -24,8 +24,8 @@ export class CatalogueComponent implements OnInit {
         .getCatalogue()
         .subscribe(
           (products) =>
-            (this.products = products.filter(
-              (p) => p.libelle.toLowerCase() == this.search.toLowerCase()
+            (this.products = products.filter((p) =>
+              p.libelle.toLowerCase().includes(this.search.toLowerCase())
             ))
         );
     } else {

@@ -1,7 +1,7 @@
 <div class="form-container">
   <form
-    (ngSubmit)="onSubmit(f)"
-    #f="ngForm"
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
     class="form"
     style="grid-column: 1"
   >
@@ -12,35 +12,35 @@
       <div class="sticky" style="background-color: var(--main)">
         <h2>Informations</h2>
       </div>
-      <label for="nom">Nom *</label
-      ><input
-        (change)="this.nomChanged = true"
+      <label for="nom">Nom *</label>
+      <input
+        formControlName="nom"
         [ngClass]="{
-          'input-wrong': nomChanged && !nom
+          'input-wrong': nom && nom.invalid && nom.touched
         }"
-        [(ngModel)]="nom"
         name="nom"
         required
       />
-      <small class="error-message" *ngIf="this.nomChanged && !nom">
+      <small class="error-message" *ngIf="nom && nom.invalid && nom.touched">
         Veuillez renseigner un nom
       </small>
       <label for="prenom">Prénom *</label>
       <input
-        (change)="this.prenomChanged = true"
+        formControlName="prenom"
         [ngClass]="{
-          'input-wrong': !prenom && prenomChanged
+          'input-wrong': prenom && prenom.invalid && prenom.touched
         }"
-        [(ngModel)]="prenom"
         name="prenom"
         required
       />
-      <small class="error-message" *ngIf="this.prenomChanged && !prenom">
+      <small
+        class="error-message"
+        *ngIf="prenom && prenom.invalid && prenom.touched"
+      >
         Veuillez renseigner un prénom
       </small>
       <label for="civilite">Civilité</label>
-
-      <select [(ngModel)]="civilite" name="civilite">
+      <select formControlName="civilite" name="civilite">
         <option>M</option>
         <option>F</option>
       </select>
@@ -49,42 +49,46 @@
       <div class="sticky" style="background-color: var(--main)">
         <h2>Coordonnées</h2>
       </div>
-      <label for="adresse">Adresse</label
-      ><input [(ngModel)]="adresse" name="adresse" />
-      <label for="cp">Code postal</label><input [(ngModel)]="cp" name="cp" />
-      <label for="ville">Ville</label><input [(ngModel)]="ville" name="ville" />
+      <label for="adresse">Adresse</label>
+      <input formControlName="adresse" name="adresse" />
+      <label for="cp">Code postal</label>
+      <input formControlName="cp" name="cp" />
+      <label for="ville">Ville</label>
+      <input formControlName="ville" name="ville" />
       <label for="tel">Téléphone * <i>(10 chiffres requis)</i></label>
       <input
-        (change)="telChanged = true"
-        type="tel"
         [ngClass]="{
-          'input-wrong': tel.length !== 10 && telChanged
+          'input-wrong': tel.invalid && tel.touched
         }"
-        [(ngModel)]="tel"
+        formControlName="tel"
+        type="tel"
         name="tel"
         required
         tel
       />
-      <label for="pays">Pays</label><input [(ngModel)]="pays" name="pays" />
-      <label for="email">Email *</label
-      ><input
-        (change)="this.emailChanged = true"
+      <small *ngIf="tel.invalid && tel.touched" class="error-message">
+        Merci de renseigner un numéro de téléphone valide.
+      </small>
+      <label for="pays">Pays</label>
+      <input formControlName="pays" name="pays" />
+      <label for="email">Email *</label>
+      <input
+        formControlName="email"
         type="email"
         [ngClass]="{
-          'input-wrong': emailChanged && !isEmailValid()
+          'input-wrong': email.invalid && email.touched
         }"
-        [(ngModel)]="email"
         name="email"
         required
         email
       />
-      <small *ngIf="emailChanged && !isEmailValid()" class="error-message">
+      <small *ngIf="email.invalid && email.touched" class="error-message">
         Merci de renseigner une adresse mail valide.
       </small>
     </div>
 
     <div
-      class="form-group"
+      class="form-group connexion"
       style="
         background-color: var(--primary);
         color: black;
@@ -96,43 +100,35 @@
       <h2>Connexion</h2>
       <label for="login">Login *</label
       ><input
+        formControlName="login"
         style="background-color: white"
-        [ngClass]="{ 'input-wrong': !login && loginChanged }"
-        [(ngModel)]="login"
+        [ngClass]="{ 'input-wrong': !login }"
         name="login"
         required
       />
       <label for="password">Mot de passe *</label
       ><input
-        (change)="this.passwordChanged = true"
+        formControlName="password"
         style="background-color: white"
-        [ngClass]="{
-          'input-success': password && passwordChanged,
-          'input-wrong': !password && passwordChanged
-        }"
         type="password"
-        [(ngModel)]="password"
         name="password"
         required
       />
 
-      <label for="password">Confirmer le mot de passe *</label>
-
+      <label for="confirmPassword">Confirmer le mot de passe *</label>
       <input
-        (change)="this.confirmPasswordChanged = true"
+        formControlName="confirmPassword"
         style="background-color: white"
         [ngClass]="{
-          'input-success': isSamePassword() && confirmPasswordChanged,
-          'input-wrong': !isSamePassword() && confirmPasswordChanged
+          'input-wrong': confirmPassword.invalid && confirmPassword.touched
         }"
         type="password"
-        [(ngModel)]="confirmPassword"
         name="confirmPassword"
         required
       />
       <small
         class="error-message"
-        *ngIf="!isSamePassword() && confirmPasswordChanged"
+        *ngIf="confirmPassword.invalid && confirmPassword.touched"
         >Veuillez renseigner le même mot de passe</small
       >
     </div>
@@ -140,10 +136,10 @@
     <button
       style="margin-top: 10px"
       [ngClass]="{
-        'btn-primary': f.valid
+        'btn-primary': form.valid
       }"
       (click)="showRecap()"
-      [disabled]="f.invalid"
+      [disabled]="form.invalid"
     >
       Envoyer
     </button>
@@ -151,17 +147,17 @@
   <div>
     <app-recapitulatif
       [submitted]="submitted"
-      [nom]="nom"
-      [prenom]="prenom"
-      [civilite]="civilite"
-      [adresse]="adresse"
-      [cp]="cp"
-      [ville]="ville"
-      [tel]="tel"
-      [email]="email"
-      [pays]="pays"
-      [login]="login"
-      [password]="password"
+      [nom]="this.form.get('nom')?.value"
+      [prenom]="this.form.get('prenom')?.value"
+      [civilite]="this.form.get('civilite')?.value"
+      [adresse]="this.form.get('adresse')?.value"
+      [cp]="this.form.get('cp')?.value"
+      [ville]="this.form.get('ville')?.value"
+      [tel]="this.form.get('tel')?.value"
+      [email]="this.form.get('email')?.value"
+      [pays]="this.form.get('pays')?.value"
+      [login]="this.form.get('login')?.value"
+      [password]="this.form.get('password')?.value"
     ></app-recapitulatif>
   </div>
 </div>

@@ -13,6 +13,7 @@ import { PhoneFormatPipe } from './phone-format.pipe';
 import { ProductsService } from './product.service';
 import { CatalogueComponent } from './catalogue/catalogue.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +25,13 @@ import { HttpClientModule } from '@angular/common/http';
     PhoneFormatPipe,
     CatalogueComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+  ],
   providers: [ProductsService],
   bootstrap: [AppComponent],
 })
