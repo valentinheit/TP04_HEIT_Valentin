@@ -1,10 +1,5 @@
 <div class="form-container">
-  <form
-    [formGroup]="form"
-    (ngSubmit)="onSubmit()"
-    class="form"
-    style="grid-column: 1"
-  >
+  <form [formGroup]="form" class="form" style="grid-column: 1">
     <h1>Formulaire de saisie d'informations client</h1>
     <i>Les champs avec un (*) sont requis.</i>
 
@@ -101,7 +96,6 @@
       <label for="login">Login *</label
       ><input
         formControlName="login"
-        style="background-color: white"
         [ngClass]="{ 'input-wrong': !login }"
         name="login"
         required
@@ -109,7 +103,6 @@
       <label for="password">Mot de passe *</label
       ><input
         formControlName="password"
-        style="background-color: white"
         type="password"
         name="password"
         required
@@ -118,7 +111,6 @@
       <label for="confirmPassword">Confirmer le mot de passe *</label>
       <input
         formControlName="confirmPassword"
-        style="background-color: white"
         [ngClass]="{
           'input-wrong': confirmPassword.invalid && confirmPassword.touched
         }"

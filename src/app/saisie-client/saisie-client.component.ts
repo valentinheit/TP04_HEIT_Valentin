@@ -61,10 +61,6 @@ export class SaisieClientComponent implements OnInit {
     return this.isValid;
   }
 
-  onSubmit() {
-    console.log(this.form.get('password')?.value);
-  }
-
   showRecap() {
     if (
       this.form.get('nom') &&

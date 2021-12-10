@@ -1,21 +1,28 @@
-<div style="display: flex; flex-direction: column">
+<div
+  style="
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  "
+>
   <h1>Catalogue</h1>
-  <input
-    [(ngModel)]="search"
-    (input)="filter()"
-    placeholder="Rechercher par libellé"
-  />
+  <app-searcher (changes)="getProducts($event)"></app-searcher>
   <table style="border: 1px solid">
     <thead>
       <tr>
         <th>ID</th>
-        <th>Libelle</th>
+        <th>Libellé</th>
+        <th>Prix</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let product of products">
         <td>{{ product.id }}</td>
-        <td>{{ product.libelle }}</td>
+        <td class="filtered-column">
+          {{ product.libelle }}
+        </td>
+        <td>{{ product.prix }}€</td>
       </tr>
     </tbody>
   </table>

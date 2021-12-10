@@ -14,6 +14,8 @@ import { ProductsService } from './product.service';
 import { CatalogueComponent } from './catalogue/catalogue.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SearcherComponent } from './searcher/searcher.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,6 +26,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     RecapitulatifComponent,
     PhoneFormatPipe,
     CatalogueComponent,
+    SearcherComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,6 +34,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FontAwesomeModule,
   ],
   providers: [ProductsService],
   bootstrap: [AppComponent],

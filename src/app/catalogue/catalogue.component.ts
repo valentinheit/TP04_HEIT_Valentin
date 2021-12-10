@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductsService } from '../product.service';
 import { Product } from '../product';
-
 @Component({
   selector: 'app-catalogue',
   templateUrl: './catalogue.component.html',
@@ -9,29 +7,16 @@ import { Product } from '../product';
 })
 export class CatalogueComponent implements OnInit {
   products: Product[] = [];
-  search: string = '';
-  constructor(private productService: ProductsService) {}
+  filterItem: string = '';
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
-    this.productService
-      .getCatalogue()
-      .subscribe((products) => (this.products = products));
+  constructor() {}
+
+  getProducts(event: Product[]): void {
+    this.products = event;
   }
 
-  filter() {
-    if (this.search !== '') {
-      this.productService
-        .getCatalogue()
-        .subscribe(
-          (products) =>
-            (this.products = products.filter((p) =>
-              p.libelle.toLowerCase().includes(this.search.toLowerCase())
-            ))
-        );
-    } else {
-      this.productService
-        .getCatalogue()
-        .subscribe((products) => (this.products = products));
-    }
+  getFilterItem(filter: string): void {
+    this.filterItem = filter;
   }
 }
