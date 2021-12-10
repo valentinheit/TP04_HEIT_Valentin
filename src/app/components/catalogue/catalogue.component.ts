@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from '../product';
+import { Product } from '../../product';
 @Component({
   selector: 'app-catalogue',
   templateUrl: './catalogue.component.html',
@@ -16,7 +16,7 @@ export class CatalogueComponent implements OnInit {
     this.products = event;
   }
 
-  getFilterItem(filter: string): void {
-    this.filterItem = filter;
+  getFilterItem(event: string): void {
+    this.filterItem = event;
   }
 }

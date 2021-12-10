@@ -4,10 +4,15 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    top: 150px;
   "
+  class="sticky"
 >
   <h1>Catalogue</h1>
-  <app-searcher (changes)="getProducts($event)"></app-searcher>
+  <app-searcher
+    (changes)="getProducts($event)"
+    (filterChanged)="getFilterItem($event)"
+  ></app-searcher>
   <table style="border: 1px solid">
     <thead>
       <tr>
@@ -19,10 +24,20 @@
     <tbody>
       <tr *ngFor="let product of products">
         <td>{{ product.id }}</td>
-        <td class="filtered-column">
+        <td
+          [ngClass]="{
+            'filtered-column': filterItem == 'libelle'
+          }"
+        >
           {{ product.libelle }}
         </td>
-        <td>{{ product.prix }}€</td>
+        <td
+          [ngClass]="{
+            'filtered-column': filterItem == 'prix'
+          }"
+        >
+          {{ product.prix }}€
+        </td>
       </tr>
     </tbody>
   </table>

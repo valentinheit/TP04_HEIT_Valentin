@@ -1,6 +1,6 @@
 import { EventEmitter, Output, Component, OnInit } from '@angular/core';
-import { ProductsService } from '../product.service';
-import { Product } from '../product';
+import { ProductsService } from '../../product.service';
+import { Product } from '../../product';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faSlidersH } from '@fortawesome/free-solid-svg-icons';
 
@@ -11,6 +11,7 @@ import { faSlidersH } from '@fortawesome/free-solid-svg-icons';
 })
 export class SearcherComponent implements OnInit {
   filterItem: string = 'libelle';
+  @Output() filterChanged = new EventEmitter<string>();
   faSearch = faSearch;
   faSlidersH = faSlidersH;
   @Output() changes = new EventEmitter<Product[]>();
@@ -24,6 +25,7 @@ export class SearcherComponent implements OnInit {
 
   update() {
     this.changes.emit(this.products);
+    this.filterChanged.emit(this.filterItem);
   }
 
   filter() {
