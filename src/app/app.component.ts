@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { CartState } from '../../shared/states/cart-state';
+import { Store, Select } from '@ngxs/store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +10,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular-app';
-  constructor() {}
+  nb$: Observable<number>;
+
+  constructor(private store: Store) {
+    this.nb$ = this.store.select(CartState.getProductsNb);
+  }
 
   ngOnInit(): void {}
 

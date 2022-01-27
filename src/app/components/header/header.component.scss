@@ -15,3 +15,23 @@
 .spacer {
   flex: 1;
 }
+
+.links {
+  display: flex;
+  justify-content: right;
+  gap: 30px;
+  margin: 30px;
+  color: white;
+}
+
+.link {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
+.cart {
+  background-color: red;
+  border-radius: 3px;
+  padding: 5px;
+}
