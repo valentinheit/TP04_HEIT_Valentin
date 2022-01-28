@@ -5,15 +5,7 @@ import { Observable } from 'rxjs';
 import { AddAddress, DelAddress } from 'shared/actions/address.action';
 import { Address } from 'shared/models/address';
 import { AddressState } from 'shared/states/address-state';
-import {
-  FormGroup,
-  FormControl,
-  Validators,
-  AbstractControl,
-  ValidationErrors,
-  FormBuilder,
-  ValidatorFn,
-} from '@angular/forms';
+import { FormControl, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-addresse',
@@ -24,11 +16,12 @@ export class AddresseComponent {
   valid: boolean = true;
   submitted: boolean = false;
   cp = new FormControl('');
-  ville = new FormControl('');
-  pays = new FormControl('');
+  city = new FormControl('');
+  country = new FormControl('');
+  street = new FormControl('');
   addressForm: any;
   @Select(AddressState.getAddresses) addresses$!: Observable<Address[]>;
-  constructor(private store: Store, private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private store: Store) {
     this.addressForm = this.formBuilder.group({
       street: ['', Validators.required],
       cp: ['', Validators.required],
@@ -38,11 +31,12 @@ export class AddresseComponent {
   }
 
   addAddress() {
-    // newAddress.city = this.addressForm.value.city;
-    // newAddress.country = this.addressForm.value.country;
-    // newAddress.postalCode = this.addressForm.value.cp;
-    // newAddress.street = this.addressForm.value.street;
-    console.log(this.addressForm.value);
-    this.store.dispatch(new AddAddress(this.addressForm.value));
+    let newAddr = new Address();
+    newAddr.city = this.addressForm.value.city;
+    newAddr.country = this.addressForm.value.country;
+    newAddr.street = this.addressForm.value.street;
+    newAddr.cp = this.addressForm.value.cp;
+    console.log(newAddr);
+    this.store.dispatch(new AddAddress(newAddr));
   }
 }

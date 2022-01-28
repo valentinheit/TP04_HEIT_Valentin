@@ -1,5 +1,6 @@
 export class Product {
-  id: number = 0;
+  id: string = '';
   libelle: string = '';
   prix: number = 0;
+  quantite: number = 0;
 }

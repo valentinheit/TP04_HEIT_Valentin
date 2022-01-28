@@ -1,9 +1,14 @@
 import { Injectable } from '@angular/core';
 import { NgxsModule, Action, Selector, State, StateContext } from '@ngxs/store';
 import { CartStateModel } from './cart-state-model';
-import { AddProductToCart, DelProductFromCart } from '../actions/cart.action';
+import {
+  AddProductToCart,
+  DelProductFromCart,
+  DelAllProductsFromCart,
+} from '../actions/cart.action';
 import { Cart } from '../models/cart';
 import { Product } from '../models/product';
+import { Guid } from 'guid-typescript';
 
 @State<CartStateModel>({
   name: 'products',
@@ -15,7 +20,6 @@ import { Product } from '../models/product';
 export class CartState {
   @Selector()
   static getProductsNb(state: CartStateModel): number {
-    console.log(state.products);
     return state.products.length;
   }
 
@@ -30,6 +34,11 @@ export class CartState {
     { payload }: AddProductToCart
   ) {
     const state = getState();
+    state.products.forEach((p) => {
+      if (p.id === payload.id) {
+      }
+    });
+
     patchState({
       products: [...state.products, payload],
     });
@@ -43,6 +52,17 @@ export class CartState {
     const state = getState();
     patchState({
       products: [...state.products.filter((t) => t.id != payload.id)],
+    });
+  }
+
+  @Action(DelAllProductsFromCart)
+  delAll(
+    { getState, patchState }: StateContext<CartStateModel>,
+    { payload }: DelProductFromCart
+  ) {
+    const state = getState();
+    patchState({
+      products: [],
     });
   }
 }

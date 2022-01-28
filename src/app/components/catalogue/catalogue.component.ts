@@ -18,7 +18,6 @@ export class CatalogueComponent {
   products: Product[] = [];
   filterItem: string = '';
   @Select(CartState.getProductsFromCart) products$!: Observable<Product[]>;
-  @Input() quantity!: number | null;
   ngOnInit(): void {}
 
   constructor(private store: Store) {}

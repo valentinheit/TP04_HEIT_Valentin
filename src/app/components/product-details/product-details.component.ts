@@ -11,7 +11,7 @@ import { AddProductToCart } from 'shared/actions/cart.action';
   styleUrls: ['./product-details.component.scss'],
 })
 export class ProductDetailsComponent {
-  id!: number;
+  id!: string;
   product: Product = new Product();
   subscription!: Subscription;
 
@@ -20,7 +20,7 @@ export class ProductDetailsComponent {
     private productService: ProductsService,
     private store: Store
   ) {
-    this.id = Number(this.route.snapshot.params['id']);
+    this.id = this.route.snapshot.params['id'];
     this.subscription = this.productService
       .getCatalogue()
       .subscribe((catalogue: Product[]) => {

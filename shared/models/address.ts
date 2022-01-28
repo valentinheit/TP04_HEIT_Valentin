@@ -1,6 +1,6 @@
-export interface Address {
-  street: string;
-  postalCode: number;
-  city: string;
-  country: string;
+export class Address {
+  street: string = '';
+  cp: number = 0;
+  city: string = '';
+  country: string = '';
 }

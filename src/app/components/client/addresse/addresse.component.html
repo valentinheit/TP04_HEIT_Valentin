@@ -7,19 +7,18 @@
       <label for="cp">Code postal</label>
       <input formControlName="cp" name="cp" />
       <label for="city">Ville</label>
-      <input formControlName="city" name="ville" />
+      <input formControlName="city" name="city" />
       <label for="country">Pays</label>
       <input formControlName="country" name="country" />
-      <button type="submit" class="add" (click)="addAddress()">+</button>
+      <button class="add" (click)="addAddress()">+</button>
     </div>
   </form>
   <div class="addresses">
     <h1>Mes adresses enregistrées</h1>
     <ul *ngIf="addresses$ | async as addresses">
-      test
       <li style="color: black" *ngFor="let address of addresses">
-        {{ address.city }} {{ address.street }} {{ address.postalCode }}
-        {{ address.country }} tesst
+        {{ address.city }} {{ address.street }} {{ address.cp }}
+        {{ address.country }}
       </li>
     </ul>
   </div>

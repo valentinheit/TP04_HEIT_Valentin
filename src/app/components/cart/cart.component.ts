@@ -16,7 +16,7 @@ import { ProductsService } from '../../product.service';
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss'],
 })
-export class CartComponent implements OnInit {
+export class CartComponent {
   subscription!: Subscription;
   product: Product = new Product();
   id!: number;
@@ -24,8 +24,8 @@ export class CartComponent implements OnInit {
   @Select(CartState.getProductsFromCart) products$!: Observable<Product[]>;
   constructor(private store: Store, private productService: ProductsService) {}
 
-  ngOnInit(): void {}
   removeAll() {
+    console.log('test');
     this.store.dispatch(new DelAllProductsFromCart());
   }
 }

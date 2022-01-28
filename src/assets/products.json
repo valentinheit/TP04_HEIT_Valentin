@@ -1,32 +1,32 @@
 [
   {
-    "id": 1,
+    "id": "1",
     "libelle": "T-shirt",
     "prix": 5
   },
   {
-    "id": 2,
+    "id": "2",
     "libelle": "Polo",
     "prix": 30
   },
   {
-    "id": 3,
+    "id": "3",
     "libelle": "Chaussettes",
     "prix": 2
   },
   {
-    "id": 4,
+    "id": "4",
     "libelle": "Pantalon",
     "prix": 28
   },
 
   {
-    "id": 5,
+    "id": "5",
     "libelle": "Ballon",
     "prix": 10
   },
   {
-    "id": 6,
+    "id": "6",
     "libelle": "Jogging",
     "prix": 19
   },
